@@ -1,0 +1,54 @@
+﻿<Page
+    x:Class="AlgogeoPresentation.Views.ListeNiveauxView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AlgogeoPresentation.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:AlgogeoPresentation.ViewModels"
+    xmlns:converters="using:AlgogeoPresentation.Converters"
+    mc:Ignorable="d"
+    Name="page">
+    <Page.DataContext>
+        <viewModel:ListeNiveauxViewModel />
+    </Page.DataContext>
+    <Page.Resources>
+        <ResourceDictionary>
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <!-- Liste des boutons pour lancer un niveau -->
+        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
+            
+
+            <ItemsControl  ItemsSource="{Binding NiveauxJeux}"   >
+                <ItemsControl.ItemTemplate >
+                    <DataTemplate>
+                        <!-- Command avec le nom du niveau a lancer -->
+                        <!-- TODO : Voir le AncestorType-->
+                        <Button Width="100" Height="100"  Margin="10" Background="Beige" Name="btn" Command="{Binding ElementName=page, Path=DataContext.StartLevelCommand}" CommandParameter="{Binding}" >
+                            <Button.Content>
+                                <Grid Height="{Binding ElementName=btn, Path=Height}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition  />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Text="{Binding Nom}" HorizontalAlignment="Center" Margin="5" />
+                                    <Image  Grid.Row="2"  Width="32" Height="32" Source="ms-appx:///Assets/green_tick-300x300.png" Visibility="{Binding EstTermine, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Page>
