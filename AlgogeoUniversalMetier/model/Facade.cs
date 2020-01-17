@@ -24,7 +24,7 @@ namespace AlgogeoMetier.model
         public async void LoadChapitre()
         {
             DataLoaderXML loader = new DataLoaderXML();
-            Chapitres = await loader.loadChapireFromFile();
+            Chapitres = await loader.LoadChapireFromFile();
             OnChapitreCharges();
         }
 

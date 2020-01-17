@@ -1,8 +1,6 @@
 ﻿using AlgogeoMetier.model;
 using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
-using AlgogeoMetier.model.questionsreponses;
 using System.Linq;
 using AlgogeoMetier.model.niveaux;
 using AlgogeoMetier.model.instruction;
@@ -27,7 +25,7 @@ namespace AlgogeoMetier.xml
             return item != null;
         }
 
-        public async Task<List<Chapitre>> loadChapireFromFile()
+        public async Task<List<Chapitre>> LoadChapireFromFile()
         {
             Windows.Storage.StorageFolder storageFolder =
                 Windows.Storage.ApplicationData.Current.LocalFolder;
@@ -40,7 +38,7 @@ namespace AlgogeoMetier.xml
             }
             else
             {
-                await defaultLevels();
+                await DefaultLevels();
                 saveFile =
                     await storageFolder.GetFileAsync(fileName);
             }
@@ -55,12 +53,12 @@ namespace AlgogeoMetier.xml
 
         }
 
-        public override List<Chapitre> loadChapitres()
+        public override List<Chapitre> LoadChapitres()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<bool> defaultLevels()
+        public async Task<bool> DefaultLevels()
         {
             List<Chapitre> chapitres = new List<Chapitre>();
             Chapitre chap;
@@ -110,33 +108,6 @@ namespace AlgogeoMetier.xml
             return await SaveChapitres(chapitres);
         }
 
-        public override List<Question> loadQuestionnaires()
-        {
-            List<Question> listeQuestions = new List<Question>();
-
-            string path = "./../../XML/";
-            XDocument fichierQuestionnaire = XDocument.Load(path + "QuestionnaireFake.xml");
-
-            listeQuestions = fichierQuestionnaire.Descendants("question")
-
-                // On créé une nouvelle question
-                .Select(question => new Question()
-                {
-                    Libelle = question.Element("libelle").Value,
-
-                    // On créé la liste de réponse en parcourant les réponses de la question
-                    Reponses = question.Descendants("reponse")
-                        .Select(reponse => new Reponse()
-                        {
-                            Libelle = reponse.Element("libelle").Value,
-                            IsGoodAnswer = reponse.Element("bonneReponse").Value == "true" ? true : false
-                        }).ToList()
-
-                }).ToList();
-
-            return listeQuestions;
-        }
-
         public override async Task<bool> SaveChapitres(List<Chapitre> chap)
         {
             XmlSerializer ser = new XmlSerializer(typeof(List<Chapitre>));
@@ -154,7 +125,7 @@ namespace AlgogeoMetier.xml
             return true;
         }
 
-        public override void saveData()
+        public override void SaveData()
         {
 
         }

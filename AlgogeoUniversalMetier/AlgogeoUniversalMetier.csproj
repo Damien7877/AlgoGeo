@@ -136,8 +136,6 @@
     <Compile Include="model\niveaux\NiveauJeux2D.cs" />
     <Compile Include="model\niveaux\NiveauLibre.cs" />
     <Compile Include="model\niveaux\NiveauLibre2D.cs" />
-    <Compile Include="model\questionsreponses\Question.cs" />
-    <Compile Include="model\questionsreponses\Reponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\AlgogeoUniversalMetier.rd.xml" />
   </ItemGroup>
